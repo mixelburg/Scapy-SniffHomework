@@ -9,7 +9,7 @@ def installer(packages):
     :param packages:
     :return: None
     """
-    print("Following packages no installed: ", end='')
+    print("Following packages no installed! : ", end='')
     for package in packages:
         print(f" {package},", end='')
     print()
