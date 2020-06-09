@@ -14,7 +14,7 @@ def installer(packages):
         print(f" {package},", end='')
     print()
 
-    choise = input("Would you like to install them? (Y/N)")
+    choise = input("Would you like to install them? (Y/N): ")
     if choise.lower() == 'y':
         for package in packages:
             os.system(f'cmd /c "pip install {package}"')
