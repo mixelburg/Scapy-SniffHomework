@@ -149,7 +149,7 @@ def get_input():
     while not check_input(choice):
         try:
             choice = int(input("Enter your choice: "))
-        except Exception as e:
+        except:
             print(f"{RED}[!] Only numbers allowed!{RESET}")
 
     return choice
