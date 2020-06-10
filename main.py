@@ -157,6 +157,7 @@ def get_input():
 
 def menu():
     print("""
+    Menu: 
     0: exit
     1: Sniff DNS
     2: Sniff Weather
