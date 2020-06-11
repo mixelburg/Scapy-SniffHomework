@@ -120,17 +120,17 @@ class Switcher(object):
 
     @make_blue
     def option_1(self):
-        print(f"[+] Started sniffing DNS")
+        print("[+] Started sniffing DNS")
         sniff(lfilter=dns_checker, prn=print_dns)
 
     @make_blue
     def option_2(self):
-        print(f"[+] Started sniffing Weather")
+        print("[+] Started sniffing Weather")
         sniff(lfilter=weather_checker, prn=print_weather)
 
     @make_blue
     def option_3(self):
-        print(f"[+] Started sniffing HTTP Requests")
+        print("[+] Started sniffing HTTP Requests")
         sniff(lfilter=http_request_checker, prn=print_http_request)
 
 
