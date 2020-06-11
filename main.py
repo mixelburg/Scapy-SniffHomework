@@ -23,6 +23,7 @@ except:
 init()
 # define colors
 RED = Fore.RED
+RESET = Fore.RESET
 
 WEATHER_SERVER_IP = '34.218.16.79'
 ANSWER_CODE = 'ANSWER'
