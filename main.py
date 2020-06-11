@@ -1,6 +1,8 @@
+# check installed packages
 import myLib
-
 myLib.install_check()
+
+from wrappers import make_green, make_red, make_blue
 
 try:
     import scapy
@@ -21,9 +23,6 @@ except:
 init()
 # define colors
 RED = Fore.RED
-GREEN = Fore.GREEN
-BLUE = Fore.BLUE
-RESET = Fore.RESET
 
 WEATHER_SERVER_IP = '34.218.16.79'
 ANSWER_CODE = 'ANSWER'
@@ -66,6 +65,7 @@ def http_request_checker(packet):
 
 # printers
 
+@make_green
 def print_dns(packet):
     """
     prints DNS packet
@@ -77,11 +77,11 @@ def print_dns(packet):
     else:
         request_data = packet[DNSRR].rdata
 
-    print(f"""{GREEN}
-    Domain: {packet[DNSRR].rrname.decode()}
-    Ip: {request_data} {RESET}""")
+    print(f"""Domain: {packet[DNSRR].rrname.decode()}
+    Ip: {request_data} """)
 
 
+@make_green
 def print_weather(packet):
     """
     Prints weather from server
@@ -91,46 +91,45 @@ def print_weather(packet):
     data = packet[Raw].load.decode()
     info = weather_parser(data)
 
-    print(f"""{GREEN}
-    date: {info['date']}
+    print(f"""date: {info['date']}
     Temp in {info['city']} is: {info['temp']} degrees  
-    situation: {info['text']}
-    {RESET}""")
+    situation: {info['text']}""")
 
 
+@make_green
 def print_http_request(packet):
     """
     Prints info from http request
     :param packet:
     :return: None
     """
-    print(f"""
-    {GREEN} 
-    getting: {packet[HTTP].Path.decode()}
-    host: {packet[HTTP].Host.decode()}
-    {RESET}
-    """)
+    print(f"""getting: {packet[HTTP].Path.decode()}
+    host: {packet[HTTP].Host.decode()}""")
 
 
 class Switcher(object):
     """
     Simple switch-case implementation in python
     """
+
     def indirect(self, i):
         method_name = 'option_' + str(i)
         method = getattr(self, method_name, lambda: 'Invalid')
         return method()
 
+    @make_blue
     def option_1(self):
-        print(f"{BLUE}[+] Started sniffing DNS{RESET}")
+        print(f"[+] Started sniffing DNS")
         sniff(lfilter=dns_checker, prn=print_dns)
 
+    @make_blue
     def option_2(self):
-        print(f"{BLUE}[+] Started sniffing Weather{RESET}")
+        print(f"[+] Started sniffing Weather")
         sniff(lfilter=weather_checker, prn=print_weather)
 
+    @make_blue
     def option_3(self):
-        print(f"{BLUE}[+] Started sniffing HTTP Requests{RESET}")
+        print(f"[+] Started sniffing HTTP Requests")
         sniff(lfilter=http_request_checker, prn=print_http_request)
 
 
@@ -165,8 +164,9 @@ def menu():
     """)
 
 
+@make_green
 def hello():
-    print(f"""{GREEN}
+    print(f"""
     
 ___  ___                _     _               _                _    
 |  \/  |               | |   (_)             | |              | |   
@@ -177,7 +177,7 @@ ___  ___                _     _               _                _
                __/ |                                                
               |___/                                                 
 Created by: Mixelburg!
-    {RESET}""")
+""")
 
 
 def main():
