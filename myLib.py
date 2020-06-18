@@ -8,6 +8,7 @@ def installer(packages):
     Installs all 'packages' if you decide so
     :param packages:
     :return: None
+
     """
     print("Following packages no installed! : ", end='')
     for package in packages:

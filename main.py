@@ -10,7 +10,7 @@ try:
     from scapy.layers.http import HTTPRequest, HTTP
     from scapy.layers.inet import TCP, UDP, IP
     from scapy.packet import Raw
-    from scapy.sendrecv import sniff
+    from scapy.all import *
 except:
     print("You have to install scapy. just run: pip install scapy")
 
@@ -61,7 +61,7 @@ def weather_checker(packet):
 
 
 def http_request_checker(packet):
-    return HTTPRequest in packet
+    return (TCP in packet) and (packet[TCP].dport == 80) and (HTTP in packet)
 
 
 # printers
@@ -104,8 +104,13 @@ def print_http_request(packet):
     :param packet:
     :return: None
     """
-    print(f"""getting: {packet[HTTP].Path.decode()}
-    host: {packet[HTTP].Host.decode()}""")
+    try:
+        print(packet[TCP].dport)
+        print(type(packet[TCP].dport))
+        print(f"""getting: {packet[HTTP].Path.decode()}
+        host: {packet[HTTP].Host.decode()}""")
+    except:
+        print("No path")
 
 
 class Switcher(object):
